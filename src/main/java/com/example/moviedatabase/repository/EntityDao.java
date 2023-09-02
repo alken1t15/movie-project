@@ -39,4 +39,28 @@ public abstract class EntityDao<T> implements AutoCloseable {
         }
     }
 
+    public void insert(T entity) {
+        try {
+            em.getTransaction().begin();
+            em.persist(entity);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+
+        }
+    }
+    public void delete(T entity) {
+        try {
+            em.getTransaction().begin();
+            em.remove(entity);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+
+        }
+    }
+
+
 }
